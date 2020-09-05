@@ -1,0 +1,10 @@
+name: Test Docker
+
+on:
+  workflow_dispatch:
+
+jobs:
+  test_docker_write:
+    runs-on: ubuntu-latest
+    steps:
+      - run: docker run --rm -it -v $PWD:/work -w /work ubuntu mkdir -pv /work/test
