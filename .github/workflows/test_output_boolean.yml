@@ -32,7 +32,7 @@ jobs:
 
       - name: Should run (not false)
         id: should_run_not_false
-        if: ! steps.booleans.outputs.no
+        if: ${{ ! steps.booleans.outputs.no }}
         run: echo "ran as expected"
       - name: Should not run (false)
         id: should_not_run_false
@@ -44,7 +44,7 @@ jobs:
 
       - name: Should run (not undefined)
         id: should_run_not_undefined
-        if: ! steps.booleans.outputs.maybe
+        if: ${{ ! steps.booleans.outputs.maybe }}
         run: echo "ran as expected"
       - name: Should not run (undefined)
         id: should_not_run_undefined
@@ -89,7 +89,7 @@ jobs:
 
       - name: Should run (not zero)
         id: should_run_not_zero
-        if: ! steps.integers.outputs.no
+        if: ${{ ! steps.integers.outputs.no }}
         run: echo "ran as expected"
       - name: Should not run (zero)
         id: should_not_run_zero
@@ -122,7 +122,7 @@ jobs:
 
       - name: Should run (not empty)
         id: should_run_not_empty
-        if: ! steps.strings.outputs.no
+        if: ${{ ! steps.strings.outputs.no }}
         run: echo "ran as expected"
       - name: Should not run (empty)
         id: should_not_run_empty
