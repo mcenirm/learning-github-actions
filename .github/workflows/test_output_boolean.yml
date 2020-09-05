@@ -22,7 +22,7 @@ jobs:
         id: should_run_true
         if: steps.booleans.outputs.yes
         run: echo "ran as expected"
-      - name: Should not run (not true)
+      - name: Should NOT run (not true)
         id: should_not_run_not_true
         if: ${{ ! steps.booleans.outputs.yes }}
         continue-on-error: true
@@ -34,7 +34,7 @@ jobs:
         id: should_run_not_false
         if: ${{ ! steps.booleans.outputs.no }}
         run: echo "ran as expected"
-      - name: Should not run (false)
+      - name: Should NOT run (false)
         id: should_not_run_false
         if: ${{ steps.booleans.outputs.no }}
         continue-on-error: true
@@ -46,7 +46,7 @@ jobs:
         id: should_run_not_undefined
         if: ${{ ! steps.booleans.outputs.maybe }}
         run: echo "ran as expected"
-      - name: Should not run (undefined)
+      - name: Should NOT run (undefined)
         id: should_not_run_undefined
         if: steps.booleans.outputs.maybe
         continue-on-error: true
@@ -58,7 +58,7 @@ jobs:
         id: should_run_not_always
         if: true == true
         run: echo "ran as expected"
-      - name: Should not run (never)
+      - name: Should NOT run (never)
         id: should_not_run_never
         if: true == false
         continue-on-error: true
@@ -79,7 +79,7 @@ jobs:
         id: should_run_one
         if: steps.integers.outputs.yes
         run: echo "ran as expected"
-      - name: Should not run (not one)
+      - name: Should NOT run (not one)
         id: should_not_run_not_one
         if: ${{ ! steps.integers.outputs.yes }}
         continue-on-error: true
@@ -91,7 +91,7 @@ jobs:
         id: should_run_not_zero
         if: ${{ ! steps.integers.outputs.no }}
         run: echo "ran as expected"
-      - name: Should not run (zero)
+      - name: Should NOT run (zero)
         id: should_not_run_zero
         if: ${{ steps.integers.outputs.no }}
         continue-on-error: true
@@ -112,7 +112,7 @@ jobs:
         id: should_run_yes
         if: steps.strings.outputs.yes
         run: echo "ran as expected"
-      - name: Should not run (not yes)
+      - name: Should NOT run (not yes)
         id: should_not_run_not_yes
         if: ${{ ! steps.strings.outputs.yes }}
         continue-on-error: true
@@ -124,7 +124,7 @@ jobs:
         id: should_run_not_empty
         if: ${{ ! steps.strings.outputs.no }}
         run: echo "ran as expected"
-      - name: Should not run (empty)
+      - name: Should NOT run (empty)
         id: should_not_run_empty
         if: steps.strings.outputs.no
         continue-on-error: true
