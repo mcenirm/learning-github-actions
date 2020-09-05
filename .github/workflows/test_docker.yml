@@ -7,4 +7,4 @@ jobs:
   test_docker_write:
     runs-on: ubuntu-latest
     steps:
-      - run: docker run --rm -it -v $PWD:/work -w /work ubuntu mkdir -pv /work/test
+      - run: docker run --rm -v $PWD:/work -w /work ubuntu mkdir -pv /work/test
