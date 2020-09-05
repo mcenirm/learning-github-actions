@@ -159,3 +159,7 @@ jobs:
       - name: Debug steps
         id: debug_steps_at_end
         run: echo "${{ toJSON(steps) }}"
+
+      - name: Check which steps ran
+        id: check_which_steps_ran
+        uses: ./.github/actions/check-which-steps-ran/
