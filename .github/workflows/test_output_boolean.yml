@@ -21,49 +21,61 @@ jobs:
       - name: Should run (true)
         id: should_run_true
         if: steps.booleans.outputs.yes
-        run: echo "ran as expected"
+        run: |
+          echo "ran as expected"
+          echo "::set-output name=ran::true"
       - name: Should NOT run (not true)
         id: should_not_run_not_true
         if: ${{ ! steps.booleans.outputs.yes }}
         continue-on-error: true
         run: |
           echo "::warning::ran unexpectedly"
+          echo "::set-output name=ran::true"
           false
 
       - name: Should run (not false)
         id: should_run_not_false
         if: ${{ ! steps.booleans.outputs.no }}
-        run: echo "ran as expected"
+        run: |
+          echo "ran as expected"
+          echo "::set-output name=ran::true"
       - name: Should NOT run (false)
         id: should_not_run_false
         if: ${{ steps.booleans.outputs.no }}
         continue-on-error: true
         run: |
           echo "::warning::ran unexpectedly"
+          echo "::set-output name=ran::true"
           false
 
       - name: Should run (not undefined)
         id: should_run_not_undefined
         if: ${{ ! steps.booleans.outputs.maybe }}
-        run: echo "ran as expected"
+        run: |
+          echo "ran as expected"
+          echo "::set-output name=ran::true"
       - name: Should NOT run (undefined)
         id: should_not_run_undefined
         if: steps.booleans.outputs.maybe
         continue-on-error: true
         run: |
           echo "::warning::ran unexpectedly"
+          echo "::set-output name=ran::true"
           false
 
       - name: Should run (always)
         id: should_run_not_always
         if: true == true
-        run: echo "ran as expected"
+        run: |
+          echo "ran as expected"
+          echo "::set-output name=ran::true"
       - name: Should NOT run (never)
         id: should_not_run_never
         if: true == false
         continue-on-error: true
         run: |
           echo "::warning::ran unexpectedly"
+          echo "::set-output name=ran::true"
           false
 
       - name: Set integers
@@ -78,25 +90,31 @@ jobs:
       - name: Should run (one)
         id: should_run_one
         if: steps.integers.outputs.yes
-        run: echo "ran as expected"
+        run: |
+          echo "ran as expected"
+          echo "::set-output name=ran::true"
       - name: Should NOT run (not one)
         id: should_not_run_not_one
         if: ${{ ! steps.integers.outputs.yes }}
         continue-on-error: true
         run: |
           echo "::warning::ran unexpectedly"
+          echo "::set-output name=ran::true"
           false
 
       - name: Should run (not zero)
         id: should_run_not_zero
         if: ${{ ! steps.integers.outputs.no }}
-        run: echo "ran as expected"
+        run: |
+          echo "ran as expected"
+          echo "::set-output name=ran::true"
       - name: Should NOT run (zero)
         id: should_not_run_zero
         if: ${{ steps.integers.outputs.no }}
         continue-on-error: true
         run: |
           echo "::warning::ran unexpectedly"
+          echo "::set-output name=ran::true"
           false
 
       - name: Set strings
@@ -111,25 +129,31 @@ jobs:
       - name: Should run (yes)
         id: should_run_yes
         if: steps.strings.outputs.yes
-        run: echo "ran as expected"
+        run: |
+          echo "ran as expected"
+          echo "::set-output name=ran::true"
       - name: Should NOT run (not yes)
         id: should_not_run_not_yes
         if: ${{ ! steps.strings.outputs.yes }}
         continue-on-error: true
         run: |
           echo "::warning::ran unexpectedly"
+          echo "::set-output name=ran::true"
           false
 
       - name: Should run (not empty)
         id: should_run_not_empty
         if: ${{ ! steps.strings.outputs.no }}
-        run: echo "ran as expected"
+        run: |
+          echo "ran as expected"
+          echo "::set-output name=ran::true"
       - name: Should NOT run (empty)
         id: should_not_run_empty
         if: steps.strings.outputs.no
         continue-on-error: true
         run: |
           echo "::warning::ran unexpectedly"
+          echo "::set-output name=ran::true"
           false
 
       - name: Debug steps
