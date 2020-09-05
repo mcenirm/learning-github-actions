@@ -1,0 +1,137 @@
+name: Test output boolean
+
+on:
+  workflow_dispatch:
+  # push:
+  #   branches: [nosuchbranch]
+
+jobs:
+  test_literals:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Set booleans
+        id: booleans
+        run: |
+          echo "::set-output name=yes::true"
+          echo "::set-output name=no::false"
+      - name: Show booleans
+        id: show_booleans
+        run: echo "${{ toJSON(steps.booleans.outputs) }}"
+
+      - name: Should run (true)
+        id: should_run_true
+        if: steps.booleans.outputs.yes
+        run: echo "ran as expected"
+      - name: Should not run (not true)
+        id: should_not_run_not_true
+        if: ${{ ! steps.booleans.outputs.yes }}
+        continue-on-error: true
+        run: |
+          echo "::warning::ran unexpectedly"
+          false
+
+      - name: Should run (not false)
+        id: should_run_not_false
+        if: ! steps.booleans.outputs.no
+        run: echo "ran as expected"
+      - name: Should not run (false)
+        id: should_not_run_false
+        if: ${{ steps.booleans.outputs.no }}
+        continue-on-error: true
+        run: |
+          echo "::warning::ran unexpectedly"
+          false
+
+      - name: Should run (not undefined)
+        id: should_run_not_undefined
+        if: ! steps.booleans.outputs.maybe
+        run: echo "ran as expected"
+      - name: Should not run (undefined)
+        id: should_not_run_undefined
+        if: steps.booleans.outputs.maybe
+        continue-on-error: true
+        run: |
+          echo "::warning::ran unexpectedly"
+          false
+
+      - name: Should run (always)
+        id: should_run_not_always
+        if: true == true
+        run: echo "ran as expected"
+      - name: Should not run (never)
+        id: should_not_run_never
+        if: true == false
+        continue-on-error: true
+        run: |
+          echo "::warning::ran unexpectedly"
+          false
+
+      - name: Set integers
+        id: integers
+        run: |
+          echo "::set-output name=yes::1"
+          echo "::set-output name=no::0"
+      - name: Show integers
+        id: show_integers
+        run: echo "${{ toJSON(steps.integers.outputs) }}"
+
+      - name: Should run (one)
+        id: should_run_one
+        if: steps.integers.outputs.yes
+        run: echo "ran as expected"
+      - name: Should not run (not one)
+        id: should_not_run_not_one
+        if: ${{ ! steps.integers.outputs.yes }}
+        continue-on-error: true
+        run: |
+          echo "::warning::ran unexpectedly"
+          false
+
+      - name: Should run (not zero)
+        id: should_run_not_zero
+        if: ! steps.integers.outputs.no
+        run: echo "ran as expected"
+      - name: Should not run (zero)
+        id: should_not_run_zero
+        if: ${{ steps.integers.outputs.no }}
+        continue-on-error: true
+        run: |
+          echo "::warning::ran unexpectedly"
+          false
+
+      - name: Set strings
+        id: strings
+        run: |
+          echo "::set-output name=yes::yes"
+          echo "::set-output name=no::"
+      - name: Show strings
+        id: show_strings
+        run: echo "${{ toJSON(steps.strings.outputs) }}"
+
+      - name: Should run (yes)
+        id: should_run_yes
+        if: steps.strings.outputs.yes
+        run: echo "ran as expected"
+      - name: Should not run (not yes)
+        id: should_not_run_not_yes
+        if: ${{ ! steps.strings.outputs.yes }}
+        continue-on-error: true
+        run: |
+          echo "::warning::ran unexpectedly"
+          false
+
+      - name: Should run (not empty)
+        id: should_run_not_empty
+        if: ! steps.strings.outputs.no
+        run: echo "ran as expected"
+      - name: Should not run (empty)
+        id: should_not_run_empty
+        if: steps.strings.outputs.no
+        continue-on-error: true
+        run: |
+          echo "::warning::ran unexpectedly"
+          false
+
+      - name: Debug steps
+        id: debug_steps_at_end
+        run: echo "${{ toJSON(steps) }}"
